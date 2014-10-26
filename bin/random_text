@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+lib_path = File.expand_path("../lib", __dir__)
+$LOAD_PATH.unshift(lib_path) unless $LOAD_PATH.include?(lib_path)
+
+require "markov_chain"
+
+dictionary_path = File.expand_path("../assets/okura-dic", __dir__)
+text_path = File.expand_path("../assets/sample.txt", __dir__)
+
+text = File.read(text_path)
+index = MarkovChain::IndexGenerator.new(dictionary_path).generate(text)
+puts MarkovChain::RandomText.new(index)
